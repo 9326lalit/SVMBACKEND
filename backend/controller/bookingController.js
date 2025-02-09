@@ -1,12 +1,6 @@
 import Booking from '../models/Booking.js'; // Import Booking model
 import nodemailer from 'nodemailer';
 
-
-
-
-
-
-
 export const createBooking = async (req, res) => {
   try {
     const { serviceId, user, date, timeSlot, totalPrice } = req.body;
@@ -139,17 +133,19 @@ const getBookedTimesForDateAndTime = async (date, time) => {
 
 
 export const checkAvailability = async (req, res) => {
-  const { date, timeSlot } = req.query;
+  const {serviceId, date, timeSlot } = req.query;
 
   // Log inputs for debugging purposes
-  // console.log("Date:", date);
-  // console.log("Time Slot:", timeSlot);
+  console.log("Date:", date);
+  console.log("Time Slot:", timeSlot);
+  console.log("ServiceID:", serviceId);
+
 
   try {
     // Validate input
-    if (!date || !timeSlot) {
+    if (!serviceId || !date || !timeSlot) {
       return res.status(400).json({
-        message: 'Date and time slot are required.',
+        message: 'Service ,Date and time slot are required.',
       });
     }
 
@@ -166,6 +162,7 @@ export const checkAvailability = async (req, res) => {
 
     // Find existing bookings with the same date and timeSlot
     const existingBookings = await Booking.find({
+      serviceId:serviceId,
       date: parsedDate,  // Match the exact date
       timeSlot: formattedTimeSlot,  // Match the exact timeSlot
     });
