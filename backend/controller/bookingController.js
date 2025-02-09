@@ -118,18 +118,18 @@ export const approveBooking = async (req, res) => {
 };
 
 
-const getBookedTimesForDateAndTime = async (date, time) => {
-  try {
-    // Query the database to check if there's a booking for this date and time
-    const booking = await Booking.findOne({ date: date, time: time });
+// const getBookedTimesForDateAndTime = async (serviceId ,date, time) => {
+//   try {
+//     // Query the database to check if there's a booking for this date and time
+//     const booking = await Booking.findOne({ serviceId:serviceId, date: date, time: time });
 
-    // Return true if the booking exists (meaning the slot is booked)
-    return booking ? true : false;
-  } catch (error) {
-    console.error('Error checking booking:', error);
-    throw new Error('Error checking booking availability');
-  }
-};
+//     // Return true if the booking exists (meaning the slot is booked)
+//     return booking ? true : false;
+//   } catch (error) {
+//     console.error('Error checking booking:', error);
+//     throw new Error('Error checking booking availability');
+//   }
+// };
 
 
 export const checkAvailability = async (req, res) => {
@@ -190,3 +190,56 @@ export const checkAvailability = async (req, res) => {
 };
 
 
+// export const checkAvailability = async (req, res) => {
+//   try {
+//     const { serviceId, date, timeSlot } = req.query;
+
+//     // Validate required parameters
+//     if (!serviceId || !date || !timeSlot) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Service ID, Date, and Time Slot are required.",
+//       });
+//     }
+
+//     // Parse and validate the date
+//     const parsedDate = new Date(date);
+//     if (isNaN(parsedDate.getTime())) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Invalid date format. Please use YYYY-MM-DD.",
+//       });
+//     }
+
+//     // Trim time slot to remove unwanted spaces
+//     const formattedTimeSlot = timeSlot.trim();
+
+//     // Query to check if the requested slot is already booked
+//     const existingBooking = await Booking.findOne({
+//       serviceId: serviceId,
+//       date: parsedDate, // Ensure the date is stored in ISO format in MongoDB
+//       timeSlot: formattedTimeSlot,
+//     });
+
+//     if (existingBooking) {
+//       return res.status(200).json({
+//         success: true,
+//         message: "This time slot is not available.",
+//         available: false,
+//       });
+//     }
+
+//     return res.status(200).json({
+//       success: true,
+//       message: "This time slot is available.",
+//       available: true,
+//     });
+//   } catch (error) {
+//     console.error("Error checking availability:", error);
+//     return res.status(500).json({
+//       success: false,
+//       message: "An error occurred while checking availability.",
+//       error: error.message,
+//     });
+//   }
+// };
