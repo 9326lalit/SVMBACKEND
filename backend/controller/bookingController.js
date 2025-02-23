@@ -53,16 +53,14 @@ export const createBooking = async (req, res) => {
 
 
 
-
 export const getBookings = async (req, res) => {
   try {
-    const bookings = await Booking.find().populate('user'); // Fetch all bookings and populate user data
+    const bookings = await Booking.find().sort({ createdAt: -1 }).populate('user'); // Fetch all bookings, sort by creation date, and populate user data
     res.status(200).json(bookings); // Respond with the bookings
   } catch (error) {
     res.status(500).json({ error: error.message }); // Handle errors
   }
 };
-
 
 
 export const deleteBooking = async (req, res) => {

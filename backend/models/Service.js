@@ -6,7 +6,7 @@ const serviceSchema = new mongoose.Schema({
   description: { type: String, required: true },
   duration: { type: Number },
   availableDates: { type: [Date]}, // Ensure it accepts an array of dates
-});
+}, { timestamps: true });
 
 const Service = mongoose.model('Service', serviceSchema);
 

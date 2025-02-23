@@ -30,7 +30,7 @@ export const createService = async (req, res) => {
 // Get all services
 export const getAllServices = async (req, res) => {
   try {
-    const services = await Service.find();
+    const services = await Service.find().sort({ createdAt: -1 });
     res.status(200).json(services);
   } catch (error) {
     console.error(error);

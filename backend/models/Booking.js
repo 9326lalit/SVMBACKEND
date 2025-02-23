@@ -10,7 +10,7 @@ const bookingSchema = new mongoose.Schema({
   timeSlot: { type: [String], required: true }, // Array of time slots
   
   totalPrice: { type: Number, required: true },
-});
+}, { timestamps: true });
 
 export default mongoose.model("Booking", bookingSchema);
 
